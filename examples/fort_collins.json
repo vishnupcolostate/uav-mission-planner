@@ -1,0 +1,30 @@
+{
+  "name": "Fort Collins park survey (illustrative)",
+  "home": {"lat": 40.5765, "lon": -105.0810},
+  "uav": {"cruise_speed_mps": 15, "max_range_m": 18000, "loiter_s": 20},
+  "safety_buffer_m": 100,
+  "waypoints": [
+    {"id": "CityPark",     "lat": 40.5830, "lon": -105.0960},
+    {"id": "OldTown",      "lat": 40.5880, "lon": -105.0760},
+    {"id": "SpringCanyon", "lat": 40.5420, "lon": -105.1330},
+    {"id": "Pineridge",    "lat": 40.5600, "lon": -105.1310},
+    {"id": "RollandMoore", "lat": 40.5570, "lon": -105.1090},
+    {"id": "Edora",        "lat": 40.5560, "lon": -105.0500},
+    {"id": "Foothills",    "lat": 40.5420, "lon": -105.0770},
+    {"id": "LeeMartinez",  "lat": 40.5950, "lon": -105.0800},
+    {"id": "Riverside",    "lat": 40.5850, "lon": -105.0400},
+    {"id": "Warren",       "lat": 40.5320, "lon": -105.0560},
+    {"id": "Avery",        "lat": 40.5550, "lon": -105.0850},
+    {"id": "TwinSilo",     "lat": 40.5130, "lon": -105.0450}
+  ],
+  "no_fly_zones": [
+    {"name": "Stadium TFR (example)",
+     "polygon": [[40.5660, -105.0940], [40.5740, -105.0940], [40.5740, -105.0840], [40.5660, -105.0840]]},
+    {"name": "Hospital heliport (example)",
+     "polygon": [[40.5685, -105.0605], [40.5745, -105.0605], [40.5745, -105.0525], [40.5685, -105.0525]]},
+    {"name": "Substation corridor (example)",
+     "polygon": [[40.5400, -105.0670], [40.5650, -105.0670], [40.5650, -105.0630], [40.5400, -105.0630]]},
+    {"name": "Restricted area (example)",
+     "polygon": [[40.5480, -105.1000], [40.5530, -105.0930], [40.5500, -105.0870], [40.5440, -105.0890], [40.5430, -105.0970]]}
+  ]
+}

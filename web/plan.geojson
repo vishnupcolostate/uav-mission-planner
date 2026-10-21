@@ -1,0 +1,635 @@
+{
+ "type": "FeatureCollection",
+ "properties": {
+  "mission": "Fort Collins park survey (illustrative)",
+  "distance_m": 39562,
+  "flight_time_s": 2877,
+  "sorties": 3,
+  "strategy": "Clarke-Wright",
+  "loop_distance_m": 31922,
+  "naive_distance_m": 33124,
+  "max_range_m": 18000,
+  "cruise_speed_mps": 15
+ },
+ "features": [
+  {
+   "type": "Feature",
+   "properties": {
+    "kind": "nfz",
+    "name": "Stadium TFR (example)"
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -105.094,
+       40.566
+      ],
+      [
+       -105.094,
+       40.574
+      ],
+      [
+       -105.084,
+       40.574
+      ],
+      [
+       -105.084,
+       40.566
+      ],
+      [
+       -105.094,
+       40.566
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "kind": "nfz",
+    "name": "Hospital heliport (example)"
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -105.0605,
+       40.5685
+      ],
+      [
+       -105.0605,
+       40.5745
+      ],
+      [
+       -105.0525,
+       40.5745
+      ],
+      [
+       -105.0525,
+       40.5685
+      ],
+      [
+       -105.0605,
+       40.5685
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "kind": "nfz",
+    "name": "Substation corridor (example)"
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -105.067,
+       40.54
+      ],
+      [
+       -105.067,
+       40.565
+      ],
+      [
+       -105.063,
+       40.565
+      ],
+      [
+       -105.063,
+       40.54
+      ],
+      [
+       -105.067,
+       40.54
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "kind": "nfz",
+    "name": "Restricted area (example)"
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -105.1,
+       40.548
+      ],
+      [
+       -105.093,
+       40.553
+      ],
+      [
+       -105.087,
+       40.55
+      ],
+      [
+       -105.089,
+       40.544
+      ],
+      [
+       -105.097,
+       40.543
+      ],
+      [
+       -105.1,
+       40.548
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "kind": "buffer",
+    "name": "Stadium TFR (example)"
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -105.08281596421217,
+       40.56510067963628
+      ],
+      [
+       -105.08281596421217,
+       40.57489932036372
+      ],
+      [
+       -105.09518403578782,
+       40.57489932036372
+      ],
+      [
+       -105.09518403578782,
+       40.56510067963628
+      ],
+      [
+       -105.08281596421217,
+       40.56510067963628
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "kind": "buffer",
+    "name": "Hospital heliport (example)"
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -105.05131596421216,
+       40.56760067963628
+      ],
+      [
+       -105.05131596421216,
+       40.57539932036372
+      ],
+      [
+       -105.06168403578783,
+       40.57539932036372
+      ],
+      [
+       -105.06168403578783,
+       40.56760067963628
+      ],
+      [
+       -105.05131596421216,
+       40.56760067963628
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "kind": "buffer",
+    "name": "Substation corridor (example)"
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -105.06181596421217,
+       40.53910067963628
+      ],
+      [
+       -105.06181596421217,
+       40.56589932036372
+      ],
+      [
+       -105.06818403578782,
+       40.56589932036372
+      ],
+      [
+       -105.06818403578782,
+       40.53910067963628
+      ],
+      [
+       -105.06181596421217,
+       40.53910067963628
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "kind": "buffer",
+    "name": "Restricted area (example)"
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -105.09770171280516,
+       40.54200086808036
+      ],
+      [
+       -105.08804251613694,
+       40.543208267663886
+      ],
+      [
+       -105.0856454644671,
+       40.55039942267342
+      ],
+      [
+       -105.09312998174676,
+       40.55414168131325
+      ],
+      [
+       -105.10142933504545,
+       40.54821357181417
+      ],
+      [
+       -105.09770171280516,
+       40.54200086808036
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "kind": "home",
+    "id": "HOME",
+    "seq": 0
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -105.081,
+     40.5765
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "kind": "waypoint",
+    "id": "CityPark",
+    "seq": 12
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -105.096,
+     40.583
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "kind": "waypoint",
+    "id": "OldTown",
+    "seq": 1
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -105.076,
+     40.588
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "kind": "waypoint",
+    "id": "SpringCanyon",
+    "seq": 10
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -105.133,
+     40.542
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "kind": "waypoint",
+    "id": "Pineridge",
+    "seq": 11
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -105.131,
+     40.56
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "kind": "waypoint",
+    "id": "RollandMoore",
+    "seq": 9
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -105.109,
+     40.557
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "kind": "waypoint",
+    "id": "Edora",
+    "seq": 4
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -105.05,
+     40.556
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "kind": "waypoint",
+    "id": "Foothills",
+    "seq": 7
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -105.077,
+     40.542
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "kind": "waypoint",
+    "id": "LeeMartinez",
+    "seq": 2
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -105.08,
+     40.595
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "kind": "waypoint",
+    "id": "Riverside",
+    "seq": 3
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -105.04,
+     40.585
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "kind": "waypoint",
+    "id": "Warren",
+    "seq": 6
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -105.056,
+     40.532
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "kind": "waypoint",
+    "id": "Avery",
+    "seq": 8
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -105.085,
+     40.555
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "kind": "waypoint",
+    "id": "TwinSilo",
+    "seq": 5
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -105.045,
+     40.513
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "kind": "sortie",
+    "sortie": 1,
+    "stops": [
+     "HOME",
+     "CityPark",
+     "Pineridge",
+     "SpringCanyon",
+     "RollandMoore",
+     "HOME"
+    ]
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      -105.081,
+      40.5765
+     ],
+     [
+      -105.096,
+      40.583
+     ],
+     [
+      -105.131,
+      40.56
+     ],
+     [
+      -105.133,
+      40.542
+     ],
+     [
+      -105.109,
+      40.557
+     ],
+     [
+      -105.09518995596676,
+      40.57490381696554
+     ],
+     [
+      -105.081,
+      40.5765
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "kind": "sortie",
+    "sortie": 2,
+    "stops": [
+     "HOME",
+     "OldTown",
+     "LeeMartinez",
+     "Riverside",
+     "HOME"
+    ]
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      -105.081,
+      40.5765
+     ],
+     [
+      -105.076,
+      40.588
+     ],
+     [
+      -105.08,
+      40.595
+     ],
+     [
+      -105.04,
+      40.585
+     ],
+     [
+      -105.081,
+      40.5765
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "kind": "sortie",
+    "sortie": 3,
+    "stops": [
+     "HOME",
+     "Avery",
+     "Foothills",
+     "Warren",
+     "TwinSilo",
+     "Edora",
+     "HOME"
+    ]
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      -105.081,
+      40.5765
+     ],
+     [
+      -105.08281004403324,
+      40.56509618303446
+     ],
+     [
+      -105.085,
+      40.555
+     ],
+     [
+      -105.077,
+      40.542
+     ],
+     [
+      -105.056,
+      40.532
+     ],
+     [
+      -105.045,
+      40.513
+     ],
+     [
+      -105.05,
+      40.556
+     ],
+     [
+      -105.06181004403324,
+      40.56590381696554
+     ],
+     [
+      -105.081,
+      40.5765
+     ]
+    ]
+   }
+  }
+ ]
+}

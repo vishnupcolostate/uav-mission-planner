@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UAV Mission Planner</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<style>
+  :root { --bg: #0f1419; --panel: #172029; --text: #e6edf3; --muted: #8b98a5; --nfz: #ef5350; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font: 14px/1.4 system-ui, sans-serif; background: var(--bg); color: var(--text);
+         display: grid; grid-template-columns: 1fr 360px; height: 100vh; }
+  #map { height: 100vh; }
+  aside { padding: 16px; overflow-y: auto; background: var(--panel); }
+  h1 { font-size: 18px; margin: 0 0 12px; }
+  .muted { color: var(--muted); font-size: 12px; }
+  .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 16px; }
+  .stat { background: #1f2b36; border-radius: 6px; padding: 8px; }
+  .stat b { display: block; font-size: 18px; font-variant-numeric: tabular-nums; }
+  .sortie { border-left: 4px solid; padding: 4px 8px; margin: 8px 0; cursor: pointer; border-radius: 2px; }
+  .sortie:hover { background: #1f2b36; }
+  button { margin-top: 8px; }
+  .wp-label { background: none; border: none; color: #fff; font: 600 11px system-ui; text-shadow: 0 0 3px #000, 0 0 3px #000; }
+  @media (max-width: 800px) { body { grid-template-columns: 1fr; grid-template-rows: 55vh auto; height: auto; }
+                              #map { height: 55vh; } }
+</style>
+</head>
+<body>
+<div id="map"></div>
+<aside>
+  <h1 id="title">Loading…</h1>
+  <div class="stats" id="stats"></div>
+  <div id="sorties"></div>
+  <button id="fly">Fly all sorties</button>
+  <p class="muted">Red = no-fly zone. Dashed = safety buffer the planner keeps out of.
+     Click a sortie to fly just that one.</p>
+  <label class="muted" style="display:block;margin-top:16px">Load another plan<br><input type="file" id="file" accept=".geojson,.json"></label>
+</aside>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+const COLORS = ['#4fc3f7', '#aed581', '#ffb74d', '#ba68c8', '#4db6ac', '#f06292'];
+const map = L.map('map');
+L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+  attribution: 'Tiles &copy; Esri &mdash; Esri, HERE, Garmin, &copy; OpenStreetMap contributors', maxZoom: 16 }).addTo(map);
+
+let layers = L.layerGroup().addTo(map), sorties = [], drone, anim;
+const ll = c => [c[1], c[0]];  // GeoJSON [lon, lat] -> Leaflet [lat, lon]
+
+function render(gj) {
+  layers.clearLayers(); cancelAnimationFrame(anim); sorties = [];
+  const P = gj.properties;
+  document.getElementById('title').textContent = P.mission;
+  const stat = (label, value) => `<div class="stat"><span class="muted">${label}</span><b>${value}</b></div>`;
+  document.getElementById('stats').innerHTML =
+    stat('Distance', `${(P.distance_m / 1000).toFixed(2)} km`) +
+    stat('Flight time', `${(P.flight_time_s / 60).toFixed(1)} min`) +
+    stat('Sorties', `${P.sorties} <span class="muted">${P.strategy || ''}</span>`) +
+    stat('Battery range', `${(P.max_range_m / 1000).toFixed(1)} km`);
+
+  const bounds = L.latLngBounds([]);
+  gj.features.forEach(f => {
+    const k = f.properties.kind, g = f.geometry;
+    if (k === 'nfz') {
+      L.polygon(g.coordinates[0].map(ll), { color: '#ef5350', weight: 2, fillOpacity: .25 })
+        .bindTooltip(f.properties.name).addTo(layers);
+    } else if (k === 'buffer') {
+      L.polygon(g.coordinates[0].map(ll), { color: '#ef5350', weight: 1, dashArray: '4 4', fill: false }).addTo(layers);
+    } else if (k === 'sortie') {
+      const color = COLORS[(f.properties.sortie - 1) % COLORS.length];
+      const pts = g.coordinates.map(ll);
+      L.polyline(pts, { color, weight: 3, opacity: .9 }).addTo(layers);
+      pts.forEach(p => bounds.extend(p));
+      sorties.push({ n: f.properties.sortie, color, pts, stops: f.properties.stops });
+    } else if (k === 'home') {
+      L.circleMarker(ll(g.coordinates), { radius: 8, color: '#fff', fillColor: '#fff', fillOpacity: 1 })
+        .bindTooltip('HOME (launch / battery swap)').addTo(layers);
+    } else if (k === 'waypoint') {
+      L.circleMarker(ll(g.coordinates), { radius: 5, color: '#fff', weight: 1, fillColor: '#263340', fillOpacity: 1 })
+        .addTo(layers);
+      L.marker(ll(g.coordinates), { icon: L.divIcon({ className: 'wp-label', html: f.properties.id, iconAnchor: [-8, 6] }) })
+        .addTo(layers);
+    }
+  });
+  map.fitBounds(bounds, { padding: [30, 30] });
+  drone = L.circleMarker([0, 0], { radius: 7, color: '#000', fillColor: '#fff', fillOpacity: 1 });
+
+  document.getElementById('sorties').innerHTML = '';
+  sorties.forEach(s => {
+    const div = document.createElement('div');
+    div.className = 'sortie'; div.style.borderColor = s.color;
+    div.innerHTML = `<b>Sortie ${s.n}</b><br><span class="muted">${s.stops.join(' → ')}</span>`;
+    div.onclick = () => fly([s]);
+    document.getElementById('sorties').appendChild(div);
+  });
+}
+
+// Animate the drone at constant ground speed along each sortie in turn.
+function fly(list) {
+  cancelAnimationFrame(anim);
+  drone.addTo(layers);
+  const legs = [];
+  list.forEach(s => { for (let i = 0; i < s.pts.length - 1; i++) legs.push([s.pts[i], s.pts[i + 1]]); });
+  const lens = legs.map(([a, b]) => map.distance(a, b));
+  const total = lens.reduce((x, y) => x + y, 0);
+  const speed = total / 8000 * list.length;   // metres per ms: ~8 s per sortie
+  let t0;
+  const step = now => {
+    t0 = t0 || now;
+    let d = (now - t0) * speed, i = 0;
+    while (i < legs.length && d > lens[i]) d -= lens[i++];
+    if (i >= legs.length) { drone.setLatLng(legs[legs.length - 1][1]); return; }
+    const [a, b] = legs[i], f = d / lens[i];
+    drone.setLatLng([a[0] + (b[0] - a[0]) * f, a[1] + (b[1] - a[1]) * f]);
+    anim = requestAnimationFrame(step);
+  };
+  anim = requestAnimationFrame(step);
+}
+
+document.getElementById('fly').onclick = () => fly(sorties);
+document.getElementById('file').onchange = e => {
+  const f = e.target.files[0]; if (f) f.text().then(t => render(JSON.parse(t)));
+};
+fetch('plan.geojson').then(r => r.json()).then(render).catch(() => {
+  map.setView([40.57, -105.08], 12);
+  document.getElementById('title').textContent = 'No plan.geojson found';
+  document.getElementById('stats').innerHTML = '<span class="muted">Run: python -m uavplan examples/fort_collins.json</span>';
+});
+</script>
+</body>
+</html>
